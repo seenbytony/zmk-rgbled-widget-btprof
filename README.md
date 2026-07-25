@@ -1,11 +1,5 @@
 # LED indicators using an RGB LED
 
-> [!IMPORTANT]
-> This module uses a versioning scheme that is compatible with ZMK versions.
-> As a general rule, the `main` branch is targeting compatibility with ZMK's `main`.
->
-> **If you have build failures with ZMK's latest release (like `v0.3`) make sure to [use the corresponding revision](#installation) for `zmk-rgbled-widget` in your `west.yml`**.
-
 This is a [ZMK module](https://zmk.dev/docs/features/modules) containing a simple widget that utilizes a (typically built-in) RGB LED controlled by three separate GPIOs.
 It is used to indicate battery level and BLE connection status in a minimalist way.
 
@@ -72,7 +66,7 @@ just add the `rgbled_adapter` as an additional shield to your build, e.g. in `bu
 ```yaml build.yaml
 ---
 include:
-  - board: xiao_ble//zmk
+  - board: seeeduino_xiao_ble
     shield: hummingbird rgbled_adapter
 ```
 
@@ -100,17 +94,17 @@ This module also defines keymap [behaviors](https://zmk.dev/docs/keymaps/behavio
 };
 ```
 
-When you invoke the behavior by pressing the corresponding key (or combo), it will trigger the corresponding indicator on the LED.
+When you invoke the behavior by pressing the corresponding key (or combo), it will trigger the LED color display.
 This will happen on all keyboard parts for split keyboards, so make sure to flash firmware to all parts after enabling.
 
 > [!NOTE]
 > The behaviors can be used even when you use split keyboards with different controllers that don't all support the widget.
-> Make sure that you use the `rgbled_adapter` shield (or enable `CONFIG_RGBLED_WIDGET` if not using the adapter) _only_ for the keyboard parts that support it.
+> Make sure that you use the `rgbled_adapter` shield (or enable `CONFIG_RGBLED_WIDGET` if not using the adapter) only for the keyboard parts that support it.
 
 ## Battery levels for splits
 
 For split keyboards, each part will indicate its own battery level with a single battery blink, by default.
-However, for some scenarios like keyboards with dongles and no RGB LED on the peripherals, you might want the central part to show the battery levels of peripherals too.
+However, for some scenarios like keyboards with dongles and no RGBLED widget on the peripherals, you might want the central part to show the battery levels of peripherals too.
 This can be done by enabling one of the below settings:
 
 - `CONFIG_RGBLED_WIDGET_BATTERY_SHOW_PERIPHERALS`: Blink for battery level of self and then the peripherals, in order
@@ -139,6 +133,7 @@ If a part is currently disconnected, a magenta/purple ([configurable](#configura
 | `CONFIG_RGBLED_WIDGET_BATTERY_BLINK_MS`       | Duration of battery level blink in ms                                 | 2000          |
 | `CONFIG_RGBLED_WIDGET_BATTERY_LEVEL_HIGH`     | High battery level percentage                                         | 80            |
 | `CONFIG_RGBLED_WIDGET_BATTERY_LEVEL_LOW`      | Low battery level percentage                                          | 20            |
+| `CONFIG_RGBLED_WIDGET_BATTERY_LEVEL_CRITICAL` | Critical battery level percentage, blink periodically if under        | 5             |
 | `CONFIG_RGBLED_WIDGET_BATTERY_LEVEL_CRITICAL` | Critical battery level percentage, blink periodically if under        | 5             |
 | `CONFIG_RGBLED_WIDGET_BATTERY_COLOR_HIGH`     | Color for high battery level (above `LEVEL_HIGH`)                     | Green (`2`)   |
 | `CONFIG_RGBLED_WIDGET_BATTERY_COLOR_MEDIUM`   | Color for medium battery level (between `LEVEL_LOW` and `LEVEL_HIGH`) | Yellow (`3`)  |
@@ -176,7 +171,7 @@ The non-default ones (second and third below) only work on central parts of spli
 
 Layer indicator only works on non-splits and central parts of splits.
 
-Below settings enable and configure the sequence-based layer indicator.
+Below enable and configure the sequence-based layer indicator.
 
 | Name                                     | Description                                                                  | Default    |
 | ---------------------------------------- | ---------------------------------------------------------------------------- | ---------- |
@@ -185,7 +180,7 @@ Below settings enable and configure the sequence-based layer indicator.
 | `CONFIG_RGBLED_WIDGET_LAYER_COLOR`       | Color to use for layer indicator                                             | Cyan (`6`) |
 | `CONFIG_RGBLED_WIDGET_LAYER_DEBOUNCE_MS` | Wait duration after a layer change before showing the highest active layer   | 100        |
 
-Below settings enable and configure the color-based layer indicator.
+Below enable and configure the color-based layer indicator.
 
 | Name                                     | Description                                                                | Default       |
 | ---------------------------------------- | -------------------------------------------------------------------------- | ------------- |
@@ -219,7 +214,7 @@ Color settings use the following integer values:
 
 </details>
 
-You can add these settings to your conf file to modify the config values. You can use a `config/rgbled_adapter.conf` file in your ZMK config repo if you use the adapter shield as mentioned above, or `config/<keyboard>.conf`. E.g. in `config/rgbled_adapter.conf`:
+You can add these settings to your keyboard conf file to modify the config values, e.g. in `config/hummingbird.conf`:
 
 ```ini
 CONFIG_RGBLED_WIDGET_INTERVAL_MS=250
@@ -246,10 +241,10 @@ As an example, here is a definition for three LEDs connected to VCC and separate
         compatible = "gpio-leds";
         status = "okay";
         led0: led_0 {
-            gpios = <&gpio0 26 GPIO_ACTIVE_LOW>; // red LED, connected to P0.26
+            gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;  // red LED, connected to P0.26
         };
         led1: led_1 {
-            gpios = <&gpio0 30 GPIO_ACTIVE_LOW>; // green LED, connected to P0.30
+            gpios = <&gpio0 30 GPIO_ACTIVE_LOW>;  // green LED, connected to P0.30
         };
         led2: led_2 {
             gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;  // blue LED, connected to P0.06

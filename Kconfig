@@ -93,15 +93,39 @@ config RGBLED_WIDGET_OUTPUT_BLINK_MS  # DEPRECATED, do not use
     int
     default 1000
 
-config RGBLED_WIDGET_CONN_COLOR_CONNECTED
+config RGBLED_WIDGET_CONN_COLOR_BT0
+    int "Color for connected BLE connection status"
+    range 0 7
+    default $(COLOR_GREEN)
+
+config RGBLED_WIDGET_CONN_COLOR_BT1
     int "Color for connected BLE connection status"
     range 0 7
     default $(COLOR_BLUE)
 
+config RGBLED_WIDGET_CONN_COLOR_BT2
+    int "Color for connected BLE connection status"
+    range 0 7
+    default $(COLOR_CYAN)
+
+config RGBLED_WIDGET_CONN_COLOR_BT3
+    int "Color for connected BLE connection status"
+    range 0 7
+    default $(COLOR_MAGENTA)
+
+config RGBLED_WIDGET_CONN_COLOR_BT4
+    int "Color for connected BLE connection status"
+    range 0 7
+    default $(COLOR_YELLOW)
+
+config RGBLED_WIDGET_CONN_COLOR_BT_FALLBACK
+    int "Color index for fallback BLE Profile"
+    default $(COLOR_WHITE)
+
 config RGBLED_WIDGET_CONN_COLOR_ADVERTISING
     int "Color for advertising BLE connection status"
     range 0 7
-    default $(COLOR_MAGENTA)
+    default $(COLOR_YELLOW)
 
 config RGBLED_WIDGET_CONN_COLOR_DISCONNECTED
     int "Color for disconnected BLE connection status"
