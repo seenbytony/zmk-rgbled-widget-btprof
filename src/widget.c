@@ -133,9 +133,19 @@ static void indicate_connectivity_internal(void) {
     default: // ZMK_TRANSPORT_BLE
 #if IS_ENABLED(CONFIG_ZMK_BLE)
         uint8_t profile_index = zmk_ble_active_profile_index();
+
+        switch (profile_index) {
+            case 0: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT0; break;
+            case 1: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT1; break;
+            case 2: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT2; break;
+            case 3: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT3; break;
+            case 4: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT4; break;
+            default: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT_FALLBACK; break; // 超出预期的通道 fallback 为白色
+        }
+
         if (zmk_ble_active_profile_is_connected()) {
             LOG_CONN_CENTRAL(profile_index, "connected", CONNECTED);
-            blink.color = CONFIG_RGBLED_WIDGET_CONN_COLOR_CONNECTED;
+            blink.color = color_idx;
         } else if (zmk_ble_active_profile_is_open()) {
             LOG_CONN_CENTRAL(profile_index, "open", ADVERTISING);
             blink.color = CONFIG_RGBLED_WIDGET_CONN_COLOR_ADVERTISING;
