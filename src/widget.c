@@ -133,6 +133,7 @@ static void indicate_connectivity_internal(void) {
     default: // ZMK_TRANSPORT_BLE
 #if IS_ENABLED(CONFIG_ZMK_BLE)
         uint8_t profile_index = zmk_ble_active_profile_index();
+        uint8_t color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT_FALLBACK;
 
         switch (profile_index) {
             case 0: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT0; break;
