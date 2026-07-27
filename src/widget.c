@@ -137,7 +137,7 @@ static void indicate_connectivity_internal(void) {
          * Second blink: connection state (Connected/Advertising/Disconnected)
          */
         struct blink_item profile_blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS,
-                                           .sleep_ms = CONFIG_RGBLED_WIDGET_INTERVAL_MS};
+                                           .sleep_ms = CONFIG_RGBLED_WIDGET_INTERVAL_S_MS};
         struct blink_item state_blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS};
 
         uint8_t profile_index = zmk_ble_active_profile_index();

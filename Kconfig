@@ -16,9 +16,13 @@ if RGBLED_WIDGET
 config LED
     default y
 
-config RGBLED_WIDGET_INTERVAL_MS
-    int "Minimum wait duration between two blinks in ms"
+config RGBLED_WIDGET_INTERVAL_L_MS
+    int "Long wait duration between two blinks in ms"
     default 500
+
+config RGBLED_WIDGET_INTERVAL_S_MS
+    int "Short wait duration between two blinks in ms"
+    default 100
 
 # Battery level settings
 
