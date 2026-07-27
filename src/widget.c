@@ -277,7 +277,7 @@ void indicate_battery(void) {
         if (ret == 0) {
             retry = 0;
             while (peripheral_level == 0 && retry++ < (CONFIG_RGBLED_WIDGET_BATTERY_BLINK_MS +
-                                                       CONFIG_RGBLED_WIDGET_INTERVAL_MS) /
+                                                       CONFIG_RGBLED_WIDGET_INTERVAL_L_MS) /
                                                           100) {
                 k_sleep(K_MSEC(100));
 #if __has_include(<zmk/split/central.h>)
@@ -421,15 +421,15 @@ extern void led_process_thread(void *d0, void *d1, void *d2) {
 
             // Blink the leds, using a separation blink if necessary
             if (blink.color == led_current_color && blink.color > 0) {
-                set_rgb_leds(0, CONFIG_RGBLED_WIDGET_INTERVAL_MS);
+                set_rgb_leds(0, CONFIG_RGBLED_WIDGET_INTERVAL_L_MS);
             }
             set_rgb_leds(blink.color, blink.duration_ms);
             if (blink.color == led_layer_color && blink.color > 0) {
-                set_rgb_leds(0, CONFIG_RGBLED_WIDGET_INTERVAL_MS);
+                set_rgb_leds(0, CONFIG_RGBLED_WIDGET_INTERVAL_L_MS);
             }
             // wait interval before processing another blink
             set_rgb_leds(led_layer_color,
-                         blink.sleep_ms > 0 ? blink.sleep_ms : CONFIG_RGBLED_WIDGET_INTERVAL_MS);
+                         blink.sleep_ms > 0 ? blink.sleep_ms : CONFIG_RGBLED_WIDGET_INTERVAL_L_MS);
 
         } else {
             LOG_DBG("Got a layer color item from msgq, color %d", blink.color);
@@ -455,7 +455,7 @@ extern void led_init_thread(void *d0, void *d1, void *d2) {
     indicate_battery();
 
     // wait until blink should be displayed for further checks
-    k_sleep(K_MSEC(CONFIG_RGBLED_WIDGET_BATTERY_BLINK_MS + CONFIG_RGBLED_WIDGET_INTERVAL_MS));
+    k_sleep(K_MSEC(CONFIG_RGBLED_WIDGET_BATTERY_BLINK_MS + CONFIG_RGBLED_WIDGET_INTERVAL_L_MS));
 #endif // IS_ENABLED(CONFIG_ZMK_BATTERY_REPORTING)
 
     // check and indicate current profile or peripheral connectivity status
