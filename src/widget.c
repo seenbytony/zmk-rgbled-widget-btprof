@@ -121,6 +121,7 @@ K_MSGQ_DEFINE(led_msgq, sizeof(struct blink_item), 16, 1);
 
 static void indicate_connectivity_internal(void) {
     struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS};
+    bool already_enqueued = false;
 
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
     switch (zmk_endpoints_selected().transport) {
@@ -132,28 +133,58 @@ static void indicate_connectivity_internal(void) {
 #endif
     default: // ZMK_TRANSPORT_BLE
 #if IS_ENABLED(CONFIG_ZMK_BLE)
+        /* First blink: profile (BT0/BT1/...)
+         * Second blink: connection state (Connected/Advertising/Disconnected)
+         */
+        struct blink_item profile_blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS,
+                                           .sleep_ms = CONFIG_RGBLED_WIDGET_INTERVAL_MS};
+        struct blink_item state_blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS};
+
         uint8_t profile_index = zmk_ble_active_profile_index();
-        uint8_t color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT_FALLBACK;
+        uint8_t profile_color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT_FALLBACK;
 
         switch (profile_index) {
-            case 0: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT0; break;
-            case 1: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT1; break;
-            case 2: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT2; break;
-            case 3: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT3; break;
-            case 4: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT4; break;
-            default: color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT_FALLBACK; break; // 超出预期的通道 fallback 为白色
+        case 0:
+            profile_color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT0;
+            break;
+        case 1:
+            profile_color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT1;
+            break;
+        case 2:
+            profile_color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT2;
+            break;
+        case 3:
+            profile_color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT3;
+            break;
+        case 4:
+            profile_color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT4;
+            break;
+        default:
+            profile_color_idx = CONFIG_RGBLED_WIDGET_CONN_COLOR_BT_FALLBACK;
+            break; // fallback color
         }
+
+        profile_blink.color = profile_color_idx;
 
         if (zmk_ble_active_profile_is_connected()) {
             LOG_CONN_CENTRAL(profile_index, "connected", CONNECTED);
-            blink.color = color_idx;
+            state_blink.color = CONFIG_RGBLED_WIDGET_CONN_COLOR_CONNECTED;
         } else if (zmk_ble_active_profile_is_open()) {
             LOG_CONN_CENTRAL(profile_index, "open", ADVERTISING);
-            blink.color = CONFIG_RGBLED_WIDGET_CONN_COLOR_ADVERTISING;
+            state_blink.color = CONFIG_RGBLED_WIDGET_CONN_COLOR_ADVERTISING;
         } else {
             LOG_CONN_CENTRAL(profile_index, "not connected", DISCONNECTED);
-            blink.color = CONFIG_RGBLED_WIDGET_CONN_COLOR_DISCONNECTED;
+            state_blink.color = CONFIG_RGBLED_WIDGET_CONN_COLOR_DISCONNECTED;
         }
+
+    #ifdef CONFIG_RGBLED_WIDGET_CONN_BLINK_MS
+        k_msgq_put(&led_msgq, &profile_blink, K_NO_WAIT);
+        k_msgq_put(&led_msgq, &state_blink, K_NO_WAIT);
+    #else
+        k_msgq_put(&led_msgq, &profile_blink, K_NO_WAIT);
+        k_msgq_put(&led_msgq, &state_blink, K_NO_WAIT);
+    #endif
+        already_enqueued = true;
 #endif
         break;
     }
@@ -167,7 +198,9 @@ static void indicate_connectivity_internal(void) {
     }
 #endif
 
-    k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
+    if (!already_enqueued) {
+        k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
+    }
 }
 
 static int led_output_listener_cb(const zmk_event_t *eh) {
