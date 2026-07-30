@@ -186,9 +186,12 @@ Below enable and configure the color-based layer indicator.
 | Name                                     | Description                                                                | Default       |
 | ---------------------------------------- | -------------------------------------------------------------------------- | ------------- |
 | `CONFIG_RGBLED_WIDGET_SHOW_LAYER_COLORS` | Indicate highest active layer with a constant configurable color per layer | `n`           |
-| `CONFIG_RGBLED_WIDGET_LAYER_0_COLOR`     | Color to use for the base layer                                            | Black (`0`)   |
-| `CONFIG_RGBLED_WIDGET_LAYER_1_COLOR`     | Color to use for layer 1                                                   | Red (`1`)     |
-| `CONFIG_RGBLED_WIDGET_LAYER_2_COLOR`     | Color to use for layer 2                                                   | Green (`2`)   |
+| `CONFIG_RGBLED_WIDGET_LAYER_0_COLOR`           | Color to use for the base layer                                            | Black (`0`)   |
+| `CONFIG_RGBLED_WIDGET_LAYER_0_COLOR_BLINK`     | Blink color to use for layer 0 when using the single blink mode            | Black (`0`)   |
+| `CONFIG_RGBLED_WIDGET_LAYER_1_COLOR`           | Color to use for layer 1                                                   | Red (`1`)     |
+| `CONFIG_RGBLED_WIDGET_LAYER_1_COLOR_BLINK`     | Blink color to use for layer 1 when using the single blink mode            | Red (`1`)     |
+| `CONFIG_RGBLED_WIDGET_LAYER_2_COLOR`           | Color to use for layer 2                                                   | Green (`2`)   |
+| `CONFIG_RGBLED_WIDGET_LAYER_2_COLOR_BLINK`     | Blink color to use for layer 2 when using the single blink mode            | Green (`2`)   |
 | `CONFIG_RGBLED_WIDGET_LAYER_3_COLOR`     | Color to use for layer 3                                                   | Yellow (`3`)  |
 | `CONFIG_RGBLED_WIDGET_LAYER_4_COLOR`     | Color to use for layer 4                                                   | Blue (`4`)    |
 | `CONFIG_RGBLED_WIDGET_LAYER_5_COLOR`     | Color to use for layer 5                                                   | Magenta (`5`) |

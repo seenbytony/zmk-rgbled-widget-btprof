@@ -171,47 +171,92 @@ config RGBLED_WIDGET_SHOW_LAYER_COLORS
     bool "Use custom colors for layers"
 
 config RGBLED_WIDGET_LAYER_0_COLOR
-    int "Color to use for the base layer"
+    int "Color to use for layer 0"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_0_COLOR_BLINK
+    int "Blink color to use for layer 0"
     range 0 7
     default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_1_COLOR
     int "Color to use for layer 1"
     range 0 7
-    default $(COLOR_RED)
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_1_COLOR_BLINK
+    int "Blink color to use for layer 1"
+    range 0 7
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_2_COLOR
     int "Color to use for layer 2"
     range 0 7
-    default $(COLOR_GREEN)
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_2_COLOR_BLINK
+    int "Blink color to use for layer 2"
+    range 0 7
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_3_COLOR
     int "Color to use for layer 3"
     range 0 7
-    default $(COLOR_YELLOW)
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_3_COLOR_BLINK
+    int "Blink color to use for layer 3"
+    range 0 7
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_4_COLOR
     int "Color to use for layer 4"
     range 0 7
-    default $(COLOR_BLUE)
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_4_COLOR_BLINK
+    int "Blink color to use for layer 4"
+    range 0 7
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_5_COLOR
     int "Color to use for layer 5"
     range 0 7
-    default $(COLOR_MAGENTA)
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_5_COLOR_BLINK
+    int "Blink color to use for layer 5"
+    range 0 7
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_6_COLOR
     int "Color to use for layer 6"
     range 0 7
-    default $(COLOR_CYAN)
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_6_COLOR_BLINK
+    int "Blink color to use for layer 6"
+    range 0 7
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_7_COLOR
     int "Color to use for layer 7"
     range 0 7
-    default $(COLOR_WHITE)
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_7_COLOR_BLINK
+    int "Blink color to use for layer 7"
+    range 0 7
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_8_COLOR
     int "Color to use for layer 8"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_8_COLOR_BLINK
+    int "Blink color to use for layer 8"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -220,8 +265,18 @@ config RGBLED_WIDGET_LAYER_9_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_9_COLOR_BLINK
+    int "Blink color to use for layer 9"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_10_COLOR
     int "Color to use for layer 10"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_10_COLOR_BLINK
+    int "Blink color to use for layer 10"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -230,8 +285,18 @@ config RGBLED_WIDGET_LAYER_11_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_11_COLOR_BLINK
+    int "Blink color to use for layer 11"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_12_COLOR
     int "Color to use for layer 12"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_12_COLOR_BLINK
+    int "Blink color to use for layer 12"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -240,8 +305,18 @@ config RGBLED_WIDGET_LAYER_13_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_13_COLOR_BLINK
+    int "Blink color to use for layer 13"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_14_COLOR
     int "Color to use for layer 14"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_14_COLOR_BLINK
+    int "Blink color to use for layer 14"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -250,8 +325,18 @@ config RGBLED_WIDGET_LAYER_15_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_15_COLOR_BLINK
+    int "Blink color to use for layer 15"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_16_COLOR
     int "Color to use for layer 16"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_16_COLOR_BLINK
+    int "Blink color to use for layer 16"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -260,8 +345,18 @@ config RGBLED_WIDGET_LAYER_17_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_17_COLOR_BLINK
+    int "Blink color to use for layer 17"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_18_COLOR
     int "Color to use for layer 18"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_18_COLOR_BLINK
+    int "Blink color to use for layer 18"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -270,8 +365,18 @@ config RGBLED_WIDGET_LAYER_19_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_19_COLOR_BLINK
+    int "Blink color to use for layer 19"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_20_COLOR
     int "Color to use for layer 20"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_20_COLOR_BLINK
+    int "Blink color to use for layer 20"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -280,8 +385,18 @@ config RGBLED_WIDGET_LAYER_21_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_21_COLOR_BLINK
+    int "Blink color to use for layer 21"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_22_COLOR
     int "Color to use for layer 22"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_22_COLOR_BLINK
+    int "Blink color to use for layer 22"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -290,8 +405,18 @@ config RGBLED_WIDGET_LAYER_23_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_23_COLOR_BLINK
+    int "Blink color to use for layer 23"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_24_COLOR
     int "Color to use for layer 24"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_24_COLOR_BLINK
+    int "Blink color to use for layer 24"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -300,8 +425,18 @@ config RGBLED_WIDGET_LAYER_25_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_25_COLOR_BLINK
+    int "Blink color to use for layer 25"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_26_COLOR
     int "Color to use for layer 26"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_26_COLOR_BLINK
+    int "Blink color to use for layer 26"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -310,8 +445,18 @@ config RGBLED_WIDGET_LAYER_27_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_27_COLOR_BLINK
+    int "Blink color to use for layer 27"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_28_COLOR
     int "Color to use for layer 28"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_28_COLOR_BLINK
+    int "Blink color to use for layer 28"
     range 0 7
     default $(COLOR_BLACK)
 
@@ -320,13 +465,28 @@ config RGBLED_WIDGET_LAYER_29_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_29_COLOR_BLINK
+    int "Blink color to use for layer 29"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_30_COLOR
     int "Color to use for layer 30"
     range 0 7
     default $(COLOR_BLACK)
 
+config RGBLED_WIDGET_LAYER_30_COLOR_BLINK
+    int "Blink clink color to use for layer 15"
+    range 0 7
+    default $(COLOR_BLACK)
+
 config RGBLED_WIDGET_LAYER_31_COLOR
     int "Color to use for layer 31"
+    range 0 7
+    default $(COLOR_BLACK)
+
+config RGBLED_WIDGET_LAYER_31_COLOR_BLINK
+    int "Blink color to use for layer 31"
     range 0 7
     default $(COLOR_BLACK)
 
