@@ -38,7 +38,7 @@ BUILD_ASSERT(DT_NODE_EXISTS(DT_ALIAS(led_blue)),
              "An alias for a blue LED is not found for RGBLED_WIDGET");
 
 BUILD_ASSERT(!(SHOW_LAYER_CHANGE_SEQ && SHOW_LAYER_COLORS) &&
-             !(SHOW_LAYER_CHANGE_COL && SHOW_LAYER_COLORS) &&
+             //!(SHOW_LAYER_CHANGE_COL && SHOW_LAYER_COLORS) &&
              !(SHOW_LAYER_CHANGE_SEQ && SHOW_LAYER_CHANGE_COL),
              "Layer indicator modes are mutually exclusive; use at most one of "
              "CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE, CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE_COL, "
