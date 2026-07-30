@@ -175,10 +175,11 @@ Below enable and configure the sequence-based layer indicator.
 
 | Name                                     | Description                                                                  | Default    |
 | ---------------------------------------- | ---------------------------------------------------------------------------- | ---------- |
-| `CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE` | Indicate highest active layer on each layer change with a sequence of blinks | `n`        |
-| `CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS`    | Blink and wait duration for layer indicator                                  | 100        |
-| `CONFIG_RGBLED_WIDGET_LAYER_COLOR`       | Color to use for layer indicator                                             | Cyan (`6`) |
-| `CONFIG_RGBLED_WIDGET_LAYER_DEBOUNCE_MS` | Wait duration after a layer change before showing the highest active layer   | 100        |
+| `CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE`     | Indicate highest active layer on each layer change with a sequence of blinks | `n`        |
+| `CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE_COL` | Indicate highest active layer on each layer change with a single blink using layer colors | `n` |
+| `CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS`      | Blink and wait duration for layer indicator                                  | 100        |
+| `CONFIG_RGBLED_WIDGET_LAYER_COLOR`         | Color to use for layer indicator                                             | Cyan (`6`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_DEBOUNCE_MS`   | Wait duration after a layer change before showing the highest active layer   | 100        |
 
 Below enable and configure the color-based layer indicator.
 

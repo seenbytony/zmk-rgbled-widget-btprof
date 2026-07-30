@@ -1,6 +1,12 @@
-#define SHOW_LAYER_CHANGE                                                                          \
+#define SHOW_LAYER_CHANGE_SEQ                                                                      \
     (IS_ENABLED(CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE)) &&                                        \
         (!IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL))
+
+#define SHOW_LAYER_CHANGE_COL                                                                      \
+    (IS_ENABLED(CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE_COL)) &&                                    \
+        (!IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL))
+
+#define SHOW_LAYER_CHANGE (SHOW_LAYER_CHANGE_SEQ)
 
 #define SHOW_LAYER_COLORS                                                                          \
     (IS_ENABLED(CONFIG_RGBLED_WIDGET_SHOW_LAYER_COLORS)) &&                                        \

@@ -37,9 +37,12 @@ BUILD_ASSERT(DT_NODE_EXISTS(DT_ALIAS(led_green)),
 BUILD_ASSERT(DT_NODE_EXISTS(DT_ALIAS(led_blue)),
              "An alias for a blue LED is not found for RGBLED_WIDGET");
 
-BUILD_ASSERT(!(SHOW_LAYER_CHANGE && SHOW_LAYER_COLORS),
-             "CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE and CONFIG_RGBLED_WIDGET_SHOW_LAYER_COLORS "
-             "are mutually exclusive");
+BUILD_ASSERT(!(SHOW_LAYER_CHANGE_SEQ && SHOW_LAYER_COLORS) &&
+             !(SHOW_LAYER_CHANGE_COL && SHOW_LAYER_COLORS) &&
+             !(SHOW_LAYER_CHANGE_SEQ && SHOW_LAYER_CHANGE_COL),
+             "Layer indicator modes are mutually exclusive; use at most one of "
+             "CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE, CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE_COL, "
+             "or CONFIG_RGBLED_WIDGET_SHOW_LAYER_COLORS");
 
 // GPIO-based LED device and indices of red/green/blue LEDs inside its DT node
 static const struct device *led_dev = DEVICE_DT_GET(LED_GPIO_NODE_ID);
@@ -51,7 +54,7 @@ static const uint8_t rgb_idx[] = {DT_NODE_CHILD_IDX(DT_ALIAS(led_red)),
 static const char *color_names[] = {"black", "red",     "green", "yellow",
                                     "blue",  "magenta", "cyan",  "white"};
 
-#if SHOW_LAYER_COLORS
+#if SHOW_LAYER_COLORS || SHOW_LAYER_CHANGE_COL
 static const uint8_t layer_color_idx[] = {
     CONFIG_RGBLED_WIDGET_LAYER_0_COLOR,  CONFIG_RGBLED_WIDGET_LAYER_1_COLOR,
     CONFIG_RGBLED_WIDGET_LAYER_2_COLOR,  CONFIG_RGBLED_WIDGET_LAYER_3_COLOR,
@@ -363,6 +366,7 @@ ZMK_SUBSCRIPTION(led_layer_color_listener, zmk_activity_state_changed);
 #endif // SHOW_LAYER_COLORS
 
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+#if SHOW_LAYER_CHANGE
 void indicate_layer(void) {
     uint8_t index = zmk_keymap_highest_layer_active();
     static const struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS,
@@ -381,9 +385,19 @@ void indicate_layer(void) {
         }
     }
 }
+#elif SHOW_LAYER_CHANGE_COL
+void indicate_layer(void) {
+    uint8_t index = zmk_keymap_highest_layer_active();
+    struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS,
+                               .color = layer_color_idx[index]};
+    LOG_INF("Blinking layer %d once with color %s", index,
+            color_names[blink.color]);
+    k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
+}
+#endif
 #endif // !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 
-#if SHOW_LAYER_CHANGE
+#if SHOW_LAYER_CHANGE || SHOW_LAYER_CHANGE_COL
 static struct k_work_delayable layer_indicate_work;
 
 static int led_layer_listener_cb(const zmk_event_t *eh) {
@@ -398,7 +412,7 @@ static void indicate_layer_cb(struct k_work *work) { indicate_layer(); }
 
 ZMK_LISTENER(led_layer_listener, led_layer_listener_cb);
 ZMK_SUBSCRIPTION(led_layer_listener, zmk_layer_state_changed);
-#endif // SHOW_LAYER_CHANGE
+#endif // SHOW_LAYER_CHANGE || SHOW_LAYER_CHANGE_COL
 
 extern void led_process_thread(void *d0, void *d1, void *d2) {
     ARG_UNUSED(d0);
@@ -407,7 +421,7 @@ extern void led_process_thread(void *d0, void *d1, void *d2) {
 
     k_work_init_delayable(&indicate_connectivity_work, indicate_connectivity_cb);
 
-#if SHOW_LAYER_CHANGE
+#if SHOW_LAYER_CHANGE || SHOW_LAYER_CHANGE_COL
     k_work_init_delayable(&layer_indicate_work, indicate_layer_cb);
 #endif
 
