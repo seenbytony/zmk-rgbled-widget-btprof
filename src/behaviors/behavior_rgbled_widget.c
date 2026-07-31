@@ -34,10 +34,12 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
         indicate_connectivity();
     }
 #endif
+#if SHOW_LAYER_CHANGE
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
     if (cfg->indicate_layer) {
         indicate_layer();
     }
+#endif
 #endif
 #endif // IS_ENABLED(CONFIG_RGBLED_WIDGET)
 
