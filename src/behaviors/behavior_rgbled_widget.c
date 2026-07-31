@@ -14,6 +14,7 @@ struct behavior_rgb_wdg_config {
     bool indicate_battery;
     bool indicate_connectivity;
     bool indicate_layer;
+    uint8_t show_color;
 };
 
 static int behavior_rgb_wdg_init(const struct device *dev) { return 0; }
@@ -41,6 +42,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     }
 #endif
 #endif
+    if (cfg->show_color <= 7) {
+        show_color(cfg->show_color);
+    }
 #endif // IS_ENABLED(CONFIG_RGBLED_WIDGET)
 
     return ZMK_BEHAVIOR_OPAQUE;
@@ -65,6 +69,7 @@ static const struct behavior_driver_api behavior_rgb_wdg_driver_api = {
         .indicate_battery = DT_INST_PROP(n, indicate_battery),                                     \
         .indicate_connectivity = DT_INST_PROP(n, indicate_connectivity),                           \
         .indicate_layer = DT_INST_PROP(n, indicate_layer),                                         \
+        .show_color = DT_INST_PROP_OR(n, show_color, 255),                                        \
     };                                                                                             \
     BEHAVIOR_DT_INST_DEFINE(n, behavior_rgb_wdg_init, NULL, NULL, &behavior_rgb_wdg_config_##n,    \
                             POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT,                      \

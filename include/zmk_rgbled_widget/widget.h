@@ -19,3 +19,5 @@ void indicate_connectivity(void);
 void indicate_layer(void);
 #endif
 #endif
+
+void show_color(uint8_t color);

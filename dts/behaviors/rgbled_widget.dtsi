@@ -15,5 +15,46 @@
             #binding-cells = <0>;
             indicate-layer;
         };
+
+        /omit-if-no-ref/ show_col_black: show_col_black {
+            compatible = "zmk,behavior-rgbled-widget";
+            #binding-cells = <0>;
+            show-color = <0>;
+        };
+        /omit-if-no-ref/ show_col_red: show_col_red {
+            compatible = "zmk,behavior-rgbled-widget";
+            #binding-cells = <0>;
+            show-color = <1>;
+        };
+        /omit-if-no-ref/ show_col_green: show_col_green {
+            compatible = "zmk,behavior-rgbled-widget";
+            #binding-cells = <0>;
+            show-color = <2>;
+        };
+        /omit-if-no-ref/ show_col_yellow: show_col_yellow {
+            compatible = "zmk,behavior-rgbled-widget";
+            #binding-cells = <0>;
+            show-color = <3>;
+        };
+        /omit-if-no-ref/ show_col_blue: show_col_blue {
+            compatible = "zmk,behavior-rgbled-widget";
+            #binding-cells = <0>;
+            show-color = <4>;
+        };
+        /omit-if-no-ref/ show_col_magenta: show_col_magenta {
+            compatible = "zmk,behavior-rgbled-widget";
+            #binding-cells = <0>;
+            show-color = <5>;
+        };
+        /omit-if-no-ref/ show_col_cyan: show_col_cyan {
+            compatible = "zmk,behavior-rgbled-widget";
+            #binding-cells = <0>;
+            show-color = <6>;
+        };
+        /omit-if-no-ref/ show_col_white: show_col_white {
+            compatible = "zmk,behavior-rgbled-widget";
+            #binding-cells = <0>;
+            show-color = <7>;
+        };
     };
 };

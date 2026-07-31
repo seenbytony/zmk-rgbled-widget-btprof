@@ -11,3 +11,5 @@ properties:
     type: boolean
   indicate-layer:
     type: boolean
+  show-color:
+    type: int
