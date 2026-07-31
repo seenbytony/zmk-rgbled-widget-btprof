@@ -176,7 +176,7 @@ config RGBLED_WIDGET_LAYER_0_COLOR_MS
 config RGBLED_WIDGET_LAYER_1_COLOR
     int "Color to use for layer 1"
     range 0 7
-    default $(COLOR_RED)
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_1_COLOR_MS
     int "On-time in ms for layer 1"
@@ -186,7 +186,7 @@ config RGBLED_WIDGET_LAYER_1_COLOR_MS
 config RGBLED_WIDGET_LAYER_2_COLOR
     int "Color to use for layer 2"
     range 0 7
-    default $(COLOR_GREEN)
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_2_COLOR_MS
     int "On-time in ms for layer 2"
@@ -196,7 +196,7 @@ config RGBLED_WIDGET_LAYER_2_COLOR_MS
 config RGBLED_WIDGET_LAYER_3_COLOR
     int "Color to use for layer 3"
     range 0 7
-    default $(COLOR_YELLOW)
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_3_COLOR_MS
     int "On-time in ms for layer 3"
@@ -206,7 +206,7 @@ config RGBLED_WIDGET_LAYER_3_COLOR_MS
 config RGBLED_WIDGET_LAYER_4_COLOR
     int "Color to use for layer 4"
     range 0 7
-    default $(COLOR_BLUE)
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_4_COLOR_MS
     int "On-time in ms for layer 4"
@@ -216,7 +216,7 @@ config RGBLED_WIDGET_LAYER_4_COLOR_MS
 config RGBLED_WIDGET_LAYER_5_COLOR
     int "Color to use for layer 5"
     range 0 7
-    default $(COLOR_MAGENTA)
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_5_COLOR_MS
     int "On-time in ms for layer 5"
@@ -226,7 +226,7 @@ config RGBLED_WIDGET_LAYER_5_COLOR_MS
 config RGBLED_WIDGET_LAYER_6_COLOR
     int "Color to use for layer 6"
     range 0 7
-    default $(COLOR_CYAN)
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_6_COLOR_MS
     int "On-time in ms for layer 6"
@@ -236,7 +236,7 @@ config RGBLED_WIDGET_LAYER_6_COLOR_MS
 config RGBLED_WIDGET_LAYER_7_COLOR
     int "Color to use for layer 7"
     range 0 7
-    default $(COLOR_WHITE)
+    default $(COLOR_BLACK)
 
 config RGBLED_WIDGET_LAYER_7_COLOR_MS
     int "On-time in ms for layer 7"
