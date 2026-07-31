@@ -139,14 +139,15 @@ static void set_rgb_leds(uint8_t color, uint16_t duration_ms) {
 K_MSGQ_DEFINE(led_msgq, sizeof(struct blink_item), 16, 1);
 
 void show_color(uint8_t color) {
-    struct blink_item blink = {.color = color};
+    struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_GENERAL_BLINK_MS, 
+                               .color = color};
     LOG_INF("Setting LED color to %s", color_names[color]);
     k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
 }
 
 static void indicate_connectivity_internal(void) {
     struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS};
-    bool already_enqueued = false;
+    bool already_enqueued = false;a
 
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
     switch (zmk_endpoints_selected().transport) {
