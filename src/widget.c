@@ -340,7 +340,7 @@ ZMK_SUBSCRIPTION(led_battery_listener, zmk_battery_state_changed);
 #endif // IS_ENABLED(CONFIG_ZMK_BATTERY_REPORTING)
 
 uint8_t led_layer_color = 0;
-uint8_t led_layer_color_ms = 0;
+uint32_t led_layer_color_ms = 0;
 #if SHOW_LAYER_COLORS
 void update_layer_color(void) {
     uint8_t index = zmk_keymap_highest_layer_active();
@@ -348,10 +348,19 @@ void update_layer_color(void) {
     if (led_layer_color != layer_color_idx[index]) {
         led_layer_color = layer_color_idx[index];
         led_layer_color_ms = layer_color_ms[index];
-        struct blink_item color = {.duration_ms = led_layer_color_ms,
-                                   .color = led_layer_color};
-        LOG_INF("Setting layer color to %s for layer %d", color_names[led_layer_color], index);
-        k_msgq_put(&led_msgq, &color, K_NO_WAIT);
+
+        if(led_layer_color_ms == 0) {
+            struct blink_item color = {.color = led_layer_color};
+            LOG_INF("Setting layer color to %s for layer %d", color_names[led_layer_color], index);
+            k_msgq_put(&led_msgq, &color, K_NO_WAIT);
+        } else {
+            struct blink_item color = {.duration_ms = led_layer_color_ms,
+                                       .color = led_layer_color};
+            LOG_INF("Setting layer color to %s for layer %d", color_names[led_layer_color], index);
+            k_msgq_put(&led_msgq, &color, K_NO_WAIT);
+            led_layer_color = 0;
+        };
+
     }
 }
 
