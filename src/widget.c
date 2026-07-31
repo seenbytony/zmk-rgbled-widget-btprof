@@ -147,7 +147,7 @@ void show_color(uint8_t color) {
 
 static void indicate_connectivity_internal(void) {
     struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS};
-    bool already_enqueued = false;a
+    bool already_enqueued = false;
 
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
     switch (zmk_endpoints_selected().transport) {
