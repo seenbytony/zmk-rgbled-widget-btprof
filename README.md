@@ -178,7 +178,7 @@ Below enable and configure the highest-active-layer indicator.
 | `CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE` | Indicate the highest active layer with a single color and per-layer hold time | `n` |
 | `CONFIG_RGBLED_WIDGET_LAYER_DEBOUNCE_MS` | Wait duration after a layer change before showing the highest active layer   | 100        |
 | `CONFIG_RGBLED_WIDGET_LAYER_X_COLOR` | Color used for the corresponding layer X and the resulting display | layer-specific |
-| `CONFIG_RGBLED_WIDGET_LAYER_X_COLOR_MS` | Hold time in milliseconds for layer X. Values above `50000` mean hold forever | 1000 |
+| `CONFIG_RGBLED_WIDGET_LAYER_X_COLOR_MS` | Hold time in milliseconds for layer X. A value of `0` means hold forever | 1000 |
 
 Below enable and configure the constant color-based layer display.
 

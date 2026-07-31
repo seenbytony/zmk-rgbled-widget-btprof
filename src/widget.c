@@ -51,7 +51,7 @@ static const uint8_t rgb_idx[] = {DT_NODE_CHILD_IDX(DT_ALIAS(led_red)),
 static const char *color_names[] = {"black", "red",     "green", "yellow",
                                     "blue",  "magenta", "cyan",  "white"};
 
-#if SHOW_LAYER_COLORS || SHOW_LAYER_CHANGE
+#if SHOW_LAYER_COLORS
 static const uint8_t layer_color_idx[] = {
     CONFIG_RGBLED_WIDGET_LAYER_0_COLOR,  CONFIG_RGBLED_WIDGET_LAYER_1_COLOR,
     CONFIG_RGBLED_WIDGET_LAYER_2_COLOR,  CONFIG_RGBLED_WIDGET_LAYER_3_COLOR,
@@ -70,9 +70,7 @@ static const uint8_t layer_color_idx[] = {
     CONFIG_RGBLED_WIDGET_LAYER_28_COLOR, CONFIG_RGBLED_WIDGET_LAYER_29_COLOR,
     CONFIG_RGBLED_WIDGET_LAYER_30_COLOR, CONFIG_RGBLED_WIDGET_LAYER_31_COLOR,
 };
-#endif
 
-#if SHOW_LAYER_CHANGE
 static const uint32_t layer_color_ms[] = {
     CONFIG_RGBLED_WIDGET_LAYER_0_COLOR_MS,  CONFIG_RGBLED_WIDGET_LAYER_1_COLOR_MS,
     CONFIG_RGBLED_WIDGET_LAYER_2_COLOR_MS,  CONFIG_RGBLED_WIDGET_LAYER_3_COLOR_MS,
@@ -342,13 +340,16 @@ ZMK_SUBSCRIPTION(led_battery_listener, zmk_battery_state_changed);
 #endif // IS_ENABLED(CONFIG_ZMK_BATTERY_REPORTING)
 
 uint8_t led_layer_color = 0;
+uint8_t led_layer_color_ms = 0;
 #if SHOW_LAYER_COLORS
 void update_layer_color(void) {
     uint8_t index = zmk_keymap_highest_layer_active();
 
     if (led_layer_color != layer_color_idx[index]) {
         led_layer_color = layer_color_idx[index];
-        struct blink_item color = {.color = led_layer_color};
+        led_layer_color_ms = layer_color_ms[index];
+        struct blink_item color = {.duration_ms = led_layer_color_ms,
+                                   .color = led_layer_color};
         LOG_INF("Setting layer color to %s for layer %d", color_names[led_layer_color], index);
         k_msgq_put(&led_msgq, &color, K_NO_WAIT);
     }
@@ -384,26 +385,26 @@ ZMK_SUBSCRIPTION(led_layer_color_listener, zmk_activity_state_changed);
 #endif // SHOW_LAYER_COLORS
 
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
-#if SHOW_LAYER_CHANGE
 void indicate_layer(void) {
     uint8_t index = zmk_keymap_highest_layer_active();
-    struct blink_item blink = {.color = layer_color_idx[index]};
-    uint32_t duration_ms = layer_color_ms[index];
+    static const struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS,
+                                            .color = CONFIG_RGBLED_WIDGET_LAYER_COLOR,
+                                            .sleep_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS};
+    static const struct blink_item last_blink = {.duration_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS,
+                                                 .color = CONFIG_RGBLED_WIDGET_LAYER_COLOR};
+    LOG_INF("Blinking %d times %s for layer change", index,
+            color_names[CONFIG_RGBLED_WIDGET_LAYER_COLOR]);
 
-    if (duration_ms > 50000U) {
-        blink.duration_ms = 0;
-        LOG_INF("Layer %d visible forever with color %s", index,
-                color_names[blink.color]);
-    } else {
-        blink.duration_ms = (uint16_t)duration_ms;
-        LOG_INF("Layer %d visible for %u ms with color %s", index, duration_ms,
-                color_names[blink.color]);
+    for (int i = 0; i < index; i++) {
+        if (i < index - 1) {
+            k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
+        } else {
+            k_msgq_put(&led_msgq, &last_blink, K_NO_WAIT);
+        }
     }
-
-    k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
 }
-#endif
 #endif // !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+
 
 #if SHOW_LAYER_CHANGE
 static struct k_work_delayable layer_indicate_work;
