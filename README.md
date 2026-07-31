@@ -171,33 +171,29 @@ The non-default ones (second and third below) only work on central parts of spli
 
 Layer indicator only works on non-splits and central parts of splits.
 
-Below enable and configure the sequence-based layer indicator.
+Below enable and configure the highest-active-layer indicator.
 
 | Name                                     | Description                                                                  | Default    |
 | ---------------------------------------- | ---------------------------------------------------------------------------- | ---------- |
-| `CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE`     | Indicate highest active layer on each layer change with a sequence of blinks | `n`        |
-| `CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE_COL` | Indicate highest active layer on each layer change with a single blink using layer colors | `n` |
-| `CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS`      | Blink and wait duration for layer indicator                                  | 100        |
-| `CONFIG_RGBLED_WIDGET_LAYER_COLOR`         | Color to use for layer indicator                                             | Cyan (`6`) |
-| `CONFIG_RGBLED_WIDGET_LAYER_DEBOUNCE_MS`   | Wait duration after a layer change before showing the highest active layer   | 100        |
+| `CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE` | Indicate the highest active layer with a single color and per-layer hold time | `n` |
+| `CONFIG_RGBLED_WIDGET_LAYER_DEBOUNCE_MS` | Wait duration after a layer change before showing the highest active layer   | 100        |
+| `CONFIG_RGBLED_WIDGET_LAYER_X_COLOR` | Color used for the corresponding layer X and the resulting display | layer-specific |
+| `CONFIG_RGBLED_WIDGET_LAYER_X_COLOR_MS` | Hold time in milliseconds for layer X. Values above `50000` mean hold forever | 1000 |
 
-Below enable and configure the color-based layer indicator.
+Below enable and configure the constant color-based layer display.
 
 | Name                                     | Description                                                                | Default       |
 | ---------------------------------------- | -------------------------------------------------------------------------- | ------------- |
 | `CONFIG_RGBLED_WIDGET_SHOW_LAYER_COLORS` | Indicate highest active layer with a constant configurable color per layer | `n`           |
-| `CONFIG_RGBLED_WIDGET_LAYER_0_COLOR`           | Color to use for the base layer                                            | Black (`0`)   |
-| `CONFIG_RGBLED_WIDGET_LAYER_0_COLOR_BLINK`     | Blink color to use for layer 0 when using the single blink mode            | Black (`0`)   |
-| `CONFIG_RGBLED_WIDGET_LAYER_1_COLOR`           | Color to use for layer 1                                                   | Red (`1`)     |
-| `CONFIG_RGBLED_WIDGET_LAYER_1_COLOR_BLINK`     | Blink color to use for layer 1 when using the single blink mode            | Red (`1`)     |
-| `CONFIG_RGBLED_WIDGET_LAYER_2_COLOR`           | Color to use for layer 2                                                   | Green (`2`)   |
-| `CONFIG_RGBLED_WIDGET_LAYER_2_COLOR_BLINK`     | Blink color to use for layer 2 when using the single blink mode            | Green (`2`)   |
-| `CONFIG_RGBLED_WIDGET_LAYER_3_COLOR`     | Color to use for layer 3                                                   | Yellow (`3`)  |
-| `CONFIG_RGBLED_WIDGET_LAYER_4_COLOR`     | Color to use for layer 4                                                   | Blue (`4`)    |
-| `CONFIG_RGBLED_WIDGET_LAYER_5_COLOR`     | Color to use for layer 5                                                   | Magenta (`5`) |
-| `CONFIG_RGBLED_WIDGET_LAYER_6_COLOR`     | Color to use for layer 6                                                   | Cyan (`6`)    |
-| `CONFIG_RGBLED_WIDGET_LAYER_7_COLOR`     | Color to use for layer 7                                                   | White (`7`)   |
-| `CONFIG_RGBLED_WIDGET_LAYER_xx_COLOR`    | Color to use for layer xx (change xx to the layer number to change)        | Black (`0`)   |
+| `CONFIG_RGBLED_WIDGET_LAYER_0_COLOR` | Color to use for the base layer | Black (`0`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_1_COLOR` | Color to use for layer 1 | Red (`1`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_2_COLOR` | Color to use for layer 2 | Green (`2`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_3_COLOR` | Color to use for layer 3 | Yellow (`3`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_4_COLOR` | Color to use for layer 4 | Blue (`4`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_5_COLOR` | Color to use for layer 5 | Magenta (`5`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_6_COLOR` | Color to use for layer 6 | Cyan (`6`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_7_COLOR` | Color to use for layer 7 | White (`7`) |
+| `CONFIG_RGBLED_WIDGET_LAYER_xx_COLOR` | Color to use for layer xx (change xx to the layer number to change) | Black (`0`) |
 
 </details>
 

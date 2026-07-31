@@ -37,12 +37,9 @@ BUILD_ASSERT(DT_NODE_EXISTS(DT_ALIAS(led_green)),
 BUILD_ASSERT(DT_NODE_EXISTS(DT_ALIAS(led_blue)),
              "An alias for a blue LED is not found for RGBLED_WIDGET");
 
-BUILD_ASSERT(!(SHOW_LAYER_CHANGE_SEQ && SHOW_LAYER_COLORS) &&
-             //!(SHOW_LAYER_CHANGE_COL && SHOW_LAYER_COLORS) &&
-             !(SHOW_LAYER_CHANGE_SEQ && SHOW_LAYER_CHANGE_COL),
-             "Layer indicator modes are mutually exclusive; use at most one of "
-             "CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE, CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE_COL, "
-             "or CONFIG_RGBLED_WIDGET_SHOW_LAYER_COLORS");
+BUILD_ASSERT(!(SHOW_LAYER_CHANGE && SHOW_LAYER_COLORS),
+             "CONFIG_RGBLED_WIDGET_SHOW_LAYER_CHANGE and CONFIG_RGBLED_WIDGET_SHOW_LAYER_COLORS "
+             "are mutually exclusive");
 
 // GPIO-based LED device and indices of red/green/blue LEDs inside its DT node
 static const struct device *led_dev = DEVICE_DT_GET(LED_GPIO_NODE_ID);
@@ -54,7 +51,7 @@ static const uint8_t rgb_idx[] = {DT_NODE_CHILD_IDX(DT_ALIAS(led_red)),
 static const char *color_names[] = {"black", "red",     "green", "yellow",
                                     "blue",  "magenta", "cyan",  "white"};
 
-#if SHOW_LAYER_COLORS
+#if SHOW_LAYER_COLORS || SHOW_LAYER_CHANGE
 static const uint8_t layer_color_idx[] = {
     CONFIG_RGBLED_WIDGET_LAYER_0_COLOR,  CONFIG_RGBLED_WIDGET_LAYER_1_COLOR,
     CONFIG_RGBLED_WIDGET_LAYER_2_COLOR,  CONFIG_RGBLED_WIDGET_LAYER_3_COLOR,
@@ -75,24 +72,24 @@ static const uint8_t layer_color_idx[] = {
 };
 #endif
 
-#if SHOW_LAYER_CHANGE_COL
-static const uint8_t layer_color_blink_idx[] = {
-    CONFIG_RGBLED_WIDGET_LAYER_0_COLOR_BLINK,  CONFIG_RGBLED_WIDGET_LAYER_1_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_2_COLOR_BLINK,  CONFIG_RGBLED_WIDGET_LAYER_3_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_4_COLOR_BLINK,  CONFIG_RGBLED_WIDGET_LAYER_5_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_6_COLOR_BLINK,  CONFIG_RGBLED_WIDGET_LAYER_7_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_8_COLOR_BLINK,  CONFIG_RGBLED_WIDGET_LAYER_9_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_10_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_11_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_12_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_13_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_14_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_15_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_16_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_17_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_18_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_19_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_20_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_21_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_22_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_23_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_24_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_25_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_26_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_27_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_28_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_29_COLOR_BLINK,
-    CONFIG_RGBLED_WIDGET_LAYER_30_COLOR_BLINK, CONFIG_RGBLED_WIDGET_LAYER_31_COLOR_BLINK,
+#if SHOW_LAYER_CHANGE
+static const uint32_t layer_color_ms[] = {
+    CONFIG_RGBLED_WIDGET_LAYER_0_COLOR_MS,  CONFIG_RGBLED_WIDGET_LAYER_1_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_2_COLOR_MS,  CONFIG_RGBLED_WIDGET_LAYER_3_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_4_COLOR_MS,  CONFIG_RGBLED_WIDGET_LAYER_5_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_6_COLOR_MS,  CONFIG_RGBLED_WIDGET_LAYER_7_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_8_COLOR_MS,  CONFIG_RGBLED_WIDGET_LAYER_9_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_10_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_11_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_12_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_13_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_14_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_15_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_16_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_17_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_18_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_19_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_20_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_21_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_22_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_23_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_24_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_25_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_26_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_27_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_28_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_29_COLOR_MS,
+    CONFIG_RGBLED_WIDGET_LAYER_30_COLOR_MS, CONFIG_RGBLED_WIDGET_LAYER_31_COLOR_MS,
 };
 #endif
 
@@ -161,7 +158,7 @@ static void indicate_connectivity_internal(void) {
          * Second blink: connection state (Connected/Advertising/Disconnected)
          */
         struct blink_item profile_blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS,
-                                           .sleep_ms = CONFIG_RGBLED_WIDGET_INTERVAL_S_MS};
+                                           .sleep_ms = CONFIG_RGBLED_WIDGET_INTERVAL_MS};
         struct blink_item state_blink = {.duration_ms = CONFIG_RGBLED_WIDGET_CONN_BLINK_MS};
 
         uint8_t profile_index = zmk_ble_active_profile_index();
@@ -390,35 +387,25 @@ ZMK_SUBSCRIPTION(led_layer_color_listener, zmk_activity_state_changed);
 #if SHOW_LAYER_CHANGE
 void indicate_layer(void) {
     uint8_t index = zmk_keymap_highest_layer_active();
-    static const struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS,
-                                            .color = CONFIG_RGBLED_WIDGET_LAYER_COLOR,
-                                            .sleep_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS};
-    static const struct blink_item last_blink = {.duration_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS,
-                                                 .color = CONFIG_RGBLED_WIDGET_LAYER_COLOR};
-    LOG_INF("Blinking %d times %s for layer change", index,
-            color_names[CONFIG_RGBLED_WIDGET_LAYER_COLOR]);
+    struct blink_item blink = {.color = layer_color_idx[index]};
+    uint32_t duration_ms = layer_color_ms[index];
 
-    for (int i = 0; i < index; i++) {
-        if (i < index - 1) {
-            k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
-        } else {
-            k_msgq_put(&led_msgq, &last_blink, K_NO_WAIT);
-        }
+    if (duration_ms > 50000U) {
+        blink.duration_ms = 0;
+        LOG_INF("Layer %d visible forever with color %s", index,
+                color_names[blink.color]);
+    } else {
+        blink.duration_ms = (uint16_t)duration_ms;
+        LOG_INF("Layer %d visible for %u ms with color %s", index, duration_ms,
+                color_names[blink.color]);
     }
-}
-#elif SHOW_LAYER_CHANGE_COL
-void indicate_layer(void) {
-    uint8_t index = zmk_keymap_highest_layer_active();
-    struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_LAYER_BLINK_MS,
-                               .color = layer_color_blink_idx[index]};
-    LOG_INF("Blinking layer %d once with blink color %s", index,
-            color_names[blink.color]);
+
     k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
 }
 #endif
 #endif // !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 
-#if SHOW_LAYER_CHANGE || SHOW_LAYER_CHANGE_COL
+#if SHOW_LAYER_CHANGE
 static struct k_work_delayable layer_indicate_work;
 
 static int led_layer_listener_cb(const zmk_event_t *eh) {
@@ -433,7 +420,7 @@ static void indicate_layer_cb(struct k_work *work) { indicate_layer(); }
 
 ZMK_LISTENER(led_layer_listener, led_layer_listener_cb);
 ZMK_SUBSCRIPTION(led_layer_listener, zmk_layer_state_changed);
-#endif // SHOW_LAYER_CHANGE || SHOW_LAYER_CHANGE_COL
+#endif // SHOW_LAYER_CHANGE
 
 extern void led_process_thread(void *d0, void *d1, void *d2) {
     ARG_UNUSED(d0);
@@ -442,7 +429,7 @@ extern void led_process_thread(void *d0, void *d1, void *d2) {
 
     k_work_init_delayable(&indicate_connectivity_work, indicate_connectivity_cb);
 
-#if SHOW_LAYER_CHANGE || SHOW_LAYER_CHANGE_COL
+#if SHOW_LAYER_CHANGE
     k_work_init_delayable(&layer_indicate_work, indicate_layer_cb);
 #endif
 

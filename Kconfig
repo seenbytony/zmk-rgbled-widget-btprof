@@ -16,13 +16,9 @@ if RGBLED_WIDGET
 config LED
     default y
 
-config RGBLED_WIDGET_INTERVAL_L_MS
-    int "Long wait duration between two blinks in ms"
+config RGBLED_WIDGET_INTERVAL_MS
+    int "Minimum wait duration between two blinks in ms"
     default 500
-
-config RGBLED_WIDGET_INTERVAL_S_MS
-    int "Short wait duration between two blinks in ms"
-    default 100
 
 # Battery level settings
 
@@ -148,10 +144,7 @@ config RGBLED_WIDGET_CONN_COLOR_USB
 
 # Layer indicator settings
 config RGBLED_WIDGET_SHOW_LAYER_CHANGE
-    bool "Indicate highest active layer on each layer change with a sequence of blinks"
-
-config RGBLED_WIDGET_SHOW_LAYER_CHANGE_COL
-    bool "Indicate highest active layer on each layer change with a single blink using layer colors"
+    bool "Indicate highest active layer on each layer change with a single blink and per-layer duration"
 
 config RGBLED_WIDGET_LAYER_BLINK_MS
     int "Blink and wait duration for layer indicator"
@@ -175,320 +168,320 @@ config RGBLED_WIDGET_LAYER_0_COLOR
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_0_COLOR_BLINK
-    int "Blink color to use for layer 0"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_0_COLOR_MS
+    int "On-time in ms for layer 0"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_1_COLOR
     int "Color to use for layer 1"
     range 0 7
-    default $(COLOR_BLACK)
+    default $(COLOR_RED)
 
-config RGBLED_WIDGET_LAYER_1_COLOR_BLINK
-    int "Blink color to use for layer 1"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_1_COLOR_MS
+    int "On-time in ms for layer 1"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_2_COLOR
     int "Color to use for layer 2"
     range 0 7
-    default $(COLOR_BLACK)
+    default $(COLOR_GREEN)
 
-config RGBLED_WIDGET_LAYER_2_COLOR_BLINK
-    int "Blink color to use for layer 2"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_2_COLOR_MS
+    int "On-time in ms for layer 2"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_3_COLOR
     int "Color to use for layer 3"
     range 0 7
-    default $(COLOR_BLACK)
+    default $(COLOR_YELLOW)
 
-config RGBLED_WIDGET_LAYER_3_COLOR_BLINK
-    int "Blink color to use for layer 3"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_3_COLOR_MS
+    int "On-time in ms for layer 3"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_4_COLOR
     int "Color to use for layer 4"
     range 0 7
-    default $(COLOR_BLACK)
+    default $(COLOR_BLUE)
 
-config RGBLED_WIDGET_LAYER_4_COLOR_BLINK
-    int "Blink color to use for layer 4"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_4_COLOR_MS
+    int "On-time in ms for layer 4"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_5_COLOR
     int "Color to use for layer 5"
     range 0 7
-    default $(COLOR_BLACK)
+    default $(COLOR_MAGENTA)
 
-config RGBLED_WIDGET_LAYER_5_COLOR_BLINK
-    int "Blink color to use for layer 5"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_5_COLOR_MS
+    int "On-time in ms for layer 5"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_6_COLOR
     int "Color to use for layer 6"
     range 0 7
-    default $(COLOR_BLACK)
+    default $(COLOR_CYAN)
 
-config RGBLED_WIDGET_LAYER_6_COLOR_BLINK
-    int "Blink color to use for layer 6"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_6_COLOR_MS
+    int "On-time in ms for layer 6"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_7_COLOR
     int "Color to use for layer 7"
     range 0 7
-    default $(COLOR_BLACK)
+    default $(COLOR_WHITE)
 
-config RGBLED_WIDGET_LAYER_7_COLOR_BLINK
-    int "Blink color to use for layer 7"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_7_COLOR_MS
+    int "On-time in ms for layer 7"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_8_COLOR
     int "Color to use for layer 8"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_8_COLOR_BLINK
-    int "Blink color to use for layer 8"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_8_COLOR_MS
+    int "On-time in ms for layer 8"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_9_COLOR
     int "Color to use for layer 9"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_9_COLOR_BLINK
-    int "Blink color to use for layer 9"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_9_COLOR_MS
+    int "On-time in ms for layer 9"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_10_COLOR
     int "Color to use for layer 10"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_10_COLOR_BLINK
-    int "Blink color to use for layer 10"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_10_COLOR_MS
+    int "On-time in ms for layer 10"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_11_COLOR
     int "Color to use for layer 11"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_11_COLOR_BLINK
-    int "Blink color to use for layer 11"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_11_COLOR_MS
+    int "On-time in ms for layer 11"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_12_COLOR
     int "Color to use for layer 12"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_12_COLOR_BLINK
-    int "Blink color to use for layer 12"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_12_COLOR_MS
+    int "On-time in ms for layer 12"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_13_COLOR
     int "Color to use for layer 13"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_13_COLOR_BLINK
-    int "Blink color to use for layer 13"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_13_COLOR_MS
+    int "On-time in ms for layer 13"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_14_COLOR
     int "Color to use for layer 14"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_14_COLOR_BLINK
-    int "Blink color to use for layer 14"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_14_COLOR_MS
+    int "On-time in ms for layer 14"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_15_COLOR
     int "Color to use for layer 15"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_15_COLOR_BLINK
-    int "Blink color to use for layer 15"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_15_COLOR_MS
+    int "On-time in ms for layer 15"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_16_COLOR
     int "Color to use for layer 16"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_16_COLOR_BLINK
-    int "Blink color to use for layer 16"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_16_COLOR_MS
+    int "On-time in ms for layer 16"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_17_COLOR
     int "Color to use for layer 17"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_17_COLOR_BLINK
-    int "Blink color to use for layer 17"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_17_COLOR_MS
+    int "On-time in ms for layer 17"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_18_COLOR
     int "Color to use for layer 18"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_18_COLOR_BLINK
-    int "Blink color to use for layer 18"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_18_COLOR_MS
+    int "On-time in ms for layer 18"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_19_COLOR
     int "Color to use for layer 19"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_19_COLOR_BLINK
-    int "Blink color to use for layer 19"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_19_COLOR_MS
+    int "On-time in ms for layer 19"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_20_COLOR
     int "Color to use for layer 20"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_20_COLOR_BLINK
-    int "Blink color to use for layer 20"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_20_COLOR_MS
+    int "On-time in ms for layer 20"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_21_COLOR
     int "Color to use for layer 21"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_21_COLOR_BLINK
-    int "Blink color to use for layer 21"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_21_COLOR_MS
+    int "On-time in ms for layer 21"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_22_COLOR
     int "Color to use for layer 22"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_22_COLOR_BLINK
-    int "Blink color to use for layer 22"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_22_COLOR_MS
+    int "On-time in ms for layer 22"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_23_COLOR
     int "Color to use for layer 23"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_23_COLOR_BLINK
-    int "Blink color to use for layer 23"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_23_COLOR_MS
+    int "On-time in ms for layer 23"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_24_COLOR
     int "Color to use for layer 24"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_24_COLOR_BLINK
-    int "Blink color to use for layer 24"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_24_COLOR_MS
+    int "On-time in ms for layer 24"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_25_COLOR
     int "Color to use for layer 25"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_25_COLOR_BLINK
-    int "Blink color to use for layer 25"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_25_COLOR_MS
+    int "On-time in ms for layer 25"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_26_COLOR
     int "Color to use for layer 26"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_26_COLOR_BLINK
-    int "Blink color to use for layer 26"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_26_COLOR_MS
+    int "On-time in ms for layer 26"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_27_COLOR
     int "Color to use for layer 27"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_27_COLOR_BLINK
-    int "Blink color to use for layer 27"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_27_COLOR_MS
+    int "On-time in ms for layer 27"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_28_COLOR
     int "Color to use for layer 28"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_28_COLOR_BLINK
-    int "Blink color to use for layer 28"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_28_COLOR_MS
+    int "On-time in ms for layer 28"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_29_COLOR
     int "Color to use for layer 29"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_29_COLOR_BLINK
-    int "Blink color to use for layer 29"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_29_COLOR_MS
+    int "On-time in ms for layer 29"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_30_COLOR
     int "Color to use for layer 30"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_30_COLOR_BLINK
-    int "Blink clink color to use for layer 15"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_30_COLOR_MS
+    int "On-time in ms for layer 30"
+    range 0 100000
+    default 1000
 
 config RGBLED_WIDGET_LAYER_31_COLOR
     int "Color to use for layer 31"
     range 0 7
     default $(COLOR_BLACK)
 
-config RGBLED_WIDGET_LAYER_31_COLOR_BLINK
-    int "Blink color to use for layer 31"
-    range 0 7
-    default $(COLOR_BLACK)
+config RGBLED_WIDGET_LAYER_31_COLOR_MS
+    int "On-time in ms for layer 31"
+    range 0 100000
+    default 1000
 
 endif # RGBLED_WIDGET
 
