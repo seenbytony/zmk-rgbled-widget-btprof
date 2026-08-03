@@ -140,7 +140,7 @@ K_MSGQ_DEFINE(led_msgq, sizeof(struct blink_item), 16, 1);
 
 void show_color(uint8_t color) {
     struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_GENERAL_BLINK_MS, 
-                               .color = color
+                               .color = color,
                                .sleep_ms = CONFIG_RGBLED_WIDGET_INTERVAL_S_MS};
     LOG_INF("Setting LED color to %s", color_names[color]);
     k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
