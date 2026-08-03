@@ -140,7 +140,8 @@ K_MSGQ_DEFINE(led_msgq, sizeof(struct blink_item), 16, 1);
 
 void show_color(uint8_t color) {
     struct blink_item blink = {.duration_ms = CONFIG_RGBLED_WIDGET_GENERAL_BLINK_MS, 
-                               .color = color};
+                               .color = color
+                               .sleep_ms = CONFIG_RGBLED_WIDGET_INTERVAL_S_MS};
     LOG_INF("Setting LED color to %s", color_names[color]);
     k_msgq_put(&led_msgq, &blink, K_NO_WAIT);
 }
@@ -362,7 +363,8 @@ void update_layer_color(void) {
             k_msgq_put(&led_msgq, &color, K_NO_WAIT);
         } else {
             struct blink_item color = {.duration_ms = led_layer_color_ms,
-                                       .color = led_layer_color};
+                                       .color = led_layer_color,
+                                       .sleep_ms = CONFIG_RGBLED_WIDGET_INTERVAL_S_MS};
             LOG_INF("Setting layer color to %s for layer %d", color_names[led_layer_color], index);
             k_msgq_put(&led_msgq, &color, K_NO_WAIT);
             led_layer_color = 0;
